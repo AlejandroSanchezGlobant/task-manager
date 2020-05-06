@@ -28,14 +28,14 @@ const upload = multer({
 // Create user
 router.post('/users', async (req, res) => {
   try {
-    const newUser = new User(req.body);
-    await newUser.save();
+    const user = new User(req.body);
+    await user.save();
     sendWelcomeEmail(req.body.email, req.body.name);
 
-    const token = await newUser.generateToken();
+    const token = await user.generateToken();
 
     res.status(201).send({
-      newUser,
+      user,
       token,
     });
   } catch (error) {
